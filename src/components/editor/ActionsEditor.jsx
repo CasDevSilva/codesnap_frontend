@@ -37,18 +37,20 @@ const ActionsEditor = ({
     }
 
     return (
-        <div>
-            <button
-                onClick={handleGenerate}
-                disabled={loading || !code.trim()}
-            >
-                {loading ? "Generating..." : "Generate"}
-            </button>
+        <div className="flex gap-4 justify-end">
             <button
                 onClick={handleClear}
                 disabled={loading || !code.trim()}
+                className="bg-[#14141a] hover:bg-[#1a1a24] text-gray-100 rounded-lg px-6 py-2.5 border border-[#1a1a24] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
                 Clear all
+            </button>
+            <button
+                onClick={handleGenerate}
+                disabled={loading || !code.trim()}
+                className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-6 py-2.5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+                {loading ? "Generating..." : "Generate"}
             </button>
         </div>
     )

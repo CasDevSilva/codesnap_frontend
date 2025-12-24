@@ -1,23 +1,19 @@
 const CodeEditor = ({ code, setCode }) => {
     return (
-        <>
+        <div className="my-6">
             <textarea
-                style={{
-                    resize: "none"
-                }}
+                className="w-full h-80 bg-[#14141a] text-gray-100 rounded-xl p-4 font-mono border border-[#1a1a24] focus:outline-none focus:ring-0 focus:border-gray-500 resize-none placeholder:text-gray-600"
                 name = "code-editor"
                 placeholder = "Paste your code here..."
                 spellCheck  = {false}
 
-                rows = {15}
-                cols = {80}
                 maxLength = {5000}
 
                 value = {code}
                 onChange = {(e) => setCode(e.target.value)}
             />
-            <p>{code.length}/5000</p>
-        </>
+            <p className="text-sm text-gray-500 mt-2 text-right">{code.length}/5000</p>
+        </div>
     )
 }
 

@@ -13,7 +13,7 @@ const Editor = ({ addSnippet }) => {
     const [padding, setPadding] = useState(16);
 
     return (
-        <div>
+        <div className="bg-[#0d0d12] rounded-2xl p-6 border border-[#1a1a24]">
             <StyleCustomizer
                 language      = {language}      setLanguage   = {setLanguage}
                 font          = {font}          setFont       = {setFont}
