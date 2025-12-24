@@ -27,13 +27,15 @@ function App() {
     }
 
     return (
-        <div>
+        <div className="min-h-screen bg-[#06060a] flex flex-col">
             <Header />
-            <Main
-              addSnippet={addSnippet}
-              snippets={snippets}
-              onClear={clearHistory}
-            />
+            <div className="flex-1 flex items-center">
+                <Main
+                  addSnippet={addSnippet}
+                  snippets={snippets}
+                  onClear={clearHistory}
+                />
+            </div>
             <Footer />
         </div>
     )
