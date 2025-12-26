@@ -1,21 +1,45 @@
-import React, { useState } from 'react'
-import { Clock, Zap, Share2, Download, Palette } from 'lucide-react'
+import React, { useState, useEffect, useRef } from 'react'
+import { Clock, Zap, Share2, Download, Palette, HelpCircle } from 'lucide-react'
 
 const Header = () => {
     const [showTooltip, setShowTooltip] = useState(false);
+    const tooltipRef = useRef(null);
+
+    // Cerrar al tocar fuera
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+                setShowTooltip(false);
+            }
+        };
+
+        if (showTooltip) {
+            document.addEventListener('mousedown', handleClickOutside);
+            document.addEventListener('touchstart', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+            document.removeEventListener('touchstart', handleClickOutside);
+        };
+    }, [showTooltip]);
 
     return (
         <div className="w-full">
             <div className="max-w-6xl mx-auto px-6 py-8 flex justify-between items-center">
                 <h1 className="text-4xl font-bold text-white text-left">CodeSnap</h1>
-                <div className="relative">
-                    <h2
-                        className="text-gray-500 text-right cursor-pointer hover:text-gray-300 transition-colors"
-                        onMouseEnter={() => setShowTooltip(true)}
-                        onMouseLeave={() => setShowTooltip(false)}
+                <div className="relative" ref={tooltipRef}>
+                    {/* Desktop: hover | Mobile: click */}
+                    <button
+                        className="flex items-center gap-1.5 text-gray-500 hover:text-gray-300 transition-colors select-none"
+                        onClick={() => setShowTooltip(!showTooltip)}
+                        onMouseEnter={() => window.innerWidth >= 768 && setShowTooltip(true)}
+                        onMouseLeave={() => window.innerWidth >= 768 && setShowTooltip(false)}
                     >
-                        How it works?
-                    </h2>
+                        <span className="hidden sm:inline">How it works?</span>
+                        <HelpCircle className="w-5 h-5" />
+                    </button>
+
                     {showTooltip && (
                         <div className="absolute top-full right-0 mt-2 w-80 p-5 bg-[#0d0d12] rounded-xl shadow-2xl border border-[#1a1a24] z-50">
                             {/* Arrow */}
