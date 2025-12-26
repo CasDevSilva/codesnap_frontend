@@ -23,6 +23,22 @@ export async function fetchGetSnippetsById(pIntSnippetId) {
     }
 }
 
+export async function fetchGetSnippetImageById(pIntSnippetId) {
+    try {
+        const response = await api.get(`/snippets/${pIntSnippetId}/image`, {
+            responseType: 'blob'  // Importante: indica que esperas binario
+        });
+
+        return response.data;  // Retorna el Blob directamente
+    } catch(err) {
+        if (axios.isCancel(err)) {
+            console.log("Request cancelled")
+        }
+
+        throw err
+    }
+}
+
 export async function fetchPostSnippets(pObjSnippet) {
     try {
         const snippetCreate = await api.post("/snippets/generate", pObjSnippet);

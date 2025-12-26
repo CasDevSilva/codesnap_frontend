@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Download, Copy, Code, Check } from 'lucide-react';
 import clipboardCopy from 'clipboard-copy';
-import { fetchGetSnippetsById } from '../services/api';
+import { fetchGetSnippetImageById, fetchGetSnippetsById } from '../services/api';
 
 const SnippetView = () => {
     const { id } = useParams();
@@ -31,11 +31,20 @@ const SnippetView = () => {
         setTimeout(() => setCopied(false), 2000);
     }
 
-    function handleDownload() {
-        const link = document.createElement('a');
-        link.href = `${import.meta.env.VITE_API_URL}/snippets/${id}/image`;
-        link.download = `codesnap-${id}.png`;
-        link.click();
+    async function handleDownload() {
+        try {
+            const blob = await fetchGetSnippetImageById(id);
+
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `codesnap-${id}.png`;
+            link.click();
+
+            window.URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error('Download failed:', err);
+        }
     }
 
     if (loading) {
