@@ -8,10 +8,19 @@ const api = axios.create({
     }
 });
 
-export async function fetchGetSnippetsById() {
-}
+export async function fetchGetSnippetsById(pIntSnippetId) {
+    try {
+        const response = await api.get(`/snippets/${pIntSnippetId}`)
+        const snippetGetted = await response.data;
 
-export async function fetchGetSnippetImageById() {
+        return snippetGetted;
+    } catch(err) {
+        if (axios.isCancel(err)) {
+            console.log("Request cancelled")
+        }
+
+        throw err
+    }
 }
 
 export async function fetchPostSnippets(pObjSnippet) {
