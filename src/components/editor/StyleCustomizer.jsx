@@ -28,7 +28,7 @@ const StyleCustomizer = ({
                     <select name="fontcode" id="fontcode" value={font} onChange={(e) => setFont(e.target.value)} className="bg-[#14141a] text-gray-100 rounded-lg px-4 py-2.5 border border-[#1a1a24] focus:outline-none focus:ring-0 focus:border-gray-500">
                         {
                             fonts.map((font) => (
-                                <option key={ font } value={ font }>{ font }</option>
+                                <option key={ font.value } value={ font.value }>{ font.label }</option>
                             ))
                         }
                     </select>
@@ -38,7 +38,7 @@ const StyleCustomizer = ({
                     <select name="themecode" id="themecode" value={theme} onChange={(e) => setTheme(e.target.value)} className="bg-[#14141a] text-gray-100 rounded-lg px-4 py-2.5 border border-[#1a1a24] focus:outline-none focus:ring-0 focus:border-gray-500">
                         {
                             themes.map((theme) => (
-                                <option key={ theme } value={ theme }>{ theme }</option>
+                                <option key={ theme.value } value={ theme.value }>{ theme.label }</option>
                             ))
                         }
                     </select>
