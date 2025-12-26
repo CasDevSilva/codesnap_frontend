@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: "http://localhost:3000/api/",
+    baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
     timeout: 10000,
     headers: {
         "Content-Type": "application/json"
@@ -10,45 +10,36 @@ const api = axios.create({
 
 export async function fetchGetSnippetsById(pIntSnippetId) {
     try {
-        const response = await api.get(`/snippets/${pIntSnippetId}`)
-        const snippetGetted = await response.data;
-
-        return snippetGetted;
-    } catch(err) {
-        if (axios.isCancel(err)) {
-            console.log("Request cancelled")
+        const response = await api.get(`/snippets/${pIntSnippetId}`);
+        return response.data;
+    } catch (err) {
+        if (err.response?.status === 404) {
+            throw new Error("Snippet not found");
         }
-
-        throw err
+        throw new Error(err.response?.data?.message || "Failed to fetch snippet");
     }
 }
 
 export async function fetchGetSnippetImageById(pIntSnippetId) {
     try {
         const response = await api.get(`/snippets/${pIntSnippetId}/image`, {
-            responseType: 'blob'  // Importante: indica que esperas binario
+            responseType: 'blob'
         });
-
-        return response.data;  // Retorna el Blob directamente
-    } catch(err) {
-        if (axios.isCancel(err)) {
-            console.log("Request cancelled")
-        }
-
-        throw err
+        return response.data;
+    } catch (err) {
+        console.log(err)
+        throw new Error("Failed to download image");
     }
 }
 
 export async function fetchPostSnippets(pObjSnippet) {
     try {
-        const snippetCreate = await api.post("/snippets/generate", pObjSnippet);
-
-        return snippetCreate;
-    } catch(err) {
-        if (axios.isCancel(err)) {
-            console.log("Request cancelled")
+        const response = await api.post("/snippets/generate", pObjSnippet);
+        return response;
+    } catch (err) {
+        if (err.response?.status === 429) {
+            throw new Error("Too many requests. Try again in 15 minutes.");
         }
-
-        throw err
+        throw new Error(err.response?.data?.message || "Failed to create snippet");
     }
 }
