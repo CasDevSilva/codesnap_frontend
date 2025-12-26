@@ -1,16 +1,31 @@
 export const languages = [
     "javascript",
-    "java"
+    "python",
+    "java",
+    "go",
+    "rust",
+    "bash",
+    "sql",
+    "json",
+    "css",
+    "markup"
 ];
 
 export const fonts = [
-    "Times New Roman",
-    "Fira Code"
+    { label: 'Open Sans', value: '"Open Sans", sans-serif' },
+    { label: 'Ubuntu',    value: '"Ubuntu", sans-serif' },
+    { label: 'Archivo',   value: '"Archivo", sans-serif' },
 ];
 
 export const themes = [
-    "Monokai",
-    "Dark Blue"
+    { label: 'Tomorrow',        value: 'tomorrow' },
+    { label: 'Okaidia',         value: 'okaidia' },
+    { label: 'Twilight',        value: 'twilight' },
+    { label: 'Dark',            value: 'dark' },
+    { label: 'Funky',           value: 'funky' },
+    { label: 'Coy',             value: 'coy' },
+    { label: 'Solarized Light', value: 'solarizedlight' },
+    { label: 'Default',         value: 'default' }  // usa "prism.min.css" sin sufijo
 ];
 
 // Solo funciones de persistencia, sin lógica de límites
