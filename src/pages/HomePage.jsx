@@ -51,6 +51,18 @@ function HomePage() {
     }
 
     function handleSetToEditor() {
+        console.log('Setting to editor:', {
+            code: currentSnippet.code,
+            language: currentSnippet.language,
+            font: currentSnippet.font,
+            theme: currentSnippet.theme,
+            background: currentSnippet.background,
+            shadow: currentSnippet.shadow,
+            shadowType: typeof currentSnippet.shadow,
+            padding: currentSnippet.padding,
+            paddingType: typeof currentSnippet.padding
+        });
+
         setCode(currentSnippet.code);
         setLanguage(currentSnippet.language);
         setFont(currentSnippet.font);
