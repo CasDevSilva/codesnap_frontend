@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { fetchPostSnippets } from '../../services/api'
+import html2canvas from 'html2canvas';
 
 const ActionsEditor = ({
     code, setCode,
@@ -13,9 +14,43 @@ const ActionsEditor = ({
 
         setLoading(true);
 
+        const elementCode = document.querySelector("#code-editor-wrapper");
+        const scrollContainer = elementCode?.querySelector(".custom-scrollbar");
+        const textarea = elementCode?.querySelector("textarea");
+
+        // Guardar estilos originales
+        const originalMaxHeight = scrollContainer?.style.maxHeight;
+        const originalOverflow = scrollContainer?.style.overflowY;
+
         try {
+            // Ocultar textarea
+            if (textarea) textarea.style.display = "none";
+
+            // Expandir contenedor para captura completa
+            if (scrollContainer) {
+                scrollContainer.style.maxHeight = "none";
+                scrollContainer.style.overflowY = "visible";
+            }
+
+            const canvas = await html2canvas(elementCode, {
+                backgroundColor: null,
+                scale: 2,
+                useCORS: true,
+                logging: false,
+            });
+
+            // Restaurar estilos
+            if (textarea) textarea.style.display = "";
+            if (scrollContainer) {
+                scrollContainer.style.maxHeight = originalMaxHeight;
+                scrollContainer.style.overflowY = originalOverflow;
+            }
+
+            const imageBase64 = canvas.toDataURL('image/png');
+
             const response = await fetchPostSnippets({
                 code,
+                imageBase64,
                 language,
                 theme,
                 font,
@@ -27,6 +62,12 @@ const ActionsEditor = ({
             addSnippet(response.data);
         } catch (err) {
             console.error("Error generating snippet:", err);
+            // Restaurar en caso de error
+            if (textarea) textarea.style.display = "";
+            if (scrollContainer) {
+                scrollContainer.style.maxHeight = originalMaxHeight;
+                scrollContainer.style.overflowY = originalOverflow;
+            }
         } finally {
             setLoading(false);
         }
