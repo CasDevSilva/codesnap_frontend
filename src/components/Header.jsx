@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Clock, Zap, Share2, Download, Palette } from 'lucide-react'
 
 const Header = () => {
     const [showTooltip, setShowTooltip] = useState(false);
@@ -16,14 +17,65 @@ const Header = () => {
                         How it works?
                     </h2>
                     {showTooltip && (
-                        <div className="absolute top-full right-0 mt-2 w-72 p-4 bg-[#0d0d12] rounded-lg shadow-lg border border-[#1a1a24] z-10">
+                        <div className="absolute top-full right-0 mt-2 w-80 p-5 bg-[#0d0d12] rounded-xl shadow-2xl border border-[#1a1a24] z-50">
+                            {/* Arrow */}
                             <div className="absolute -top-2 right-4 w-0 h-0 border-l-8 border-r-8 border-b-8 border-l-transparent border-r-transparent border-b-[#1a1a24]"></div>
-                            <ol className="text-sm text-gray-300 space-y-2 list-decimal list-inside">
-                                <li>Paste your code into the editor.</li>
-                                <li>Customize the style (theme, font, colors).</li>
-                                <li>Click Generate to create the image.</li>
-                                <li>Download or share your snippet.</li>
-                            </ol>
+
+                            {/* Steps */}
+                            <div className="space-y-3 mb-4">
+                                <h3 className="text-sm font-semibold text-gray-100 mb-3">Quick Start</h3>
+                                <ol className="text-sm text-gray-300 space-y-2">
+                                    <li className="flex items-start gap-2">
+                                        <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 text-xs flex items-center justify-center mt-0.5">1</span>
+                                        <span>Paste your code into the editor</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 text-xs flex items-center justify-center mt-0.5">2</span>
+                                        <span>Customize theme, font, colors & shadow</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 text-xs flex items-center justify-center mt-0.5">3</span>
+                                        <span>Click <strong className="text-blue-400">Generate</strong> to create your image</span>
+                                    </li>
+                                    <li className="flex items-start gap-2">
+                                        <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 text-xs flex items-center justify-center mt-0.5">4</span>
+                                        <span>Download PNG or share the link</span>
+                                    </li>
+                                </ol>
+                            </div>
+
+                            {/* Divider */}
+                            <div className="border-t border-[#1a1a24] my-4"></div>
+
+                            {/* Features */}
+                            <div className="space-y-2">
+                                <h3 className="text-sm font-semibold text-gray-100 mb-3">Good to know</h3>
+
+                                <div className="flex items-center gap-2 text-xs text-gray-400">
+                                    <Clock className="w-3.5 h-3.5 text-amber-400" />
+                                    <span>Shared links expire after <strong className="text-amber-400">1 hour</strong></span>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs text-gray-400">
+                                    <Zap className="w-3.5 h-3.5 text-green-400" />
+                                    <span>Rate limit: 20 generations / 15 min</span>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs text-gray-400">
+                                    <Palette className="w-3.5 h-3.5 text-purple-400" />
+                                    <span>8 themes • 10 languages • 3 fonts</span>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs text-gray-400">
+                                    <Download className="w-3.5 h-3.5 text-blue-400" />
+                                    <span>PNG downloads are permanent</span>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-xs text-gray-400">
+                                    <Share2 className="w-3.5 h-3.5 text-cyan-400" />
+                                    <span>Last 5 snippets saved locally</span>
+                                </div>
+                            </div>
                         </div>
                     )}
                 </div>
