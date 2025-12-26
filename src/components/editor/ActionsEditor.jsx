@@ -32,9 +32,12 @@ const ActionsEditor = ({
                 scrollContainer.style.overflowY = "visible";
             }
 
+            // Detectar móvil y ajustar escala
+            const isMobile = window.innerWidth < 768;
+
             const canvas = await html2canvas(elementCode, {
                 backgroundColor: null,
-                scale: 2,
+                scale: isMobile ? 1 : 2,
                 useCORS: true,
                 logging: false,
             });
@@ -62,6 +65,8 @@ const ActionsEditor = ({
             addSnippet(response.data);
         } catch (err) {
             console.error("Error generating snippet:", err);
+            alert("Error generating image: " + err.message);
+
             // Restaurar en caso de error
             if (textarea) textarea.style.display = "";
             if (scrollContainer) {
